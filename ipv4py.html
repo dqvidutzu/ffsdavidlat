@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Viewer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2c2c2c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .code-container {
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #444;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 800px;
+            overflow: auto;
+        }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        .back-button {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border: 2px solid #0056b3;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+    </style>
+</head>
+<body>
+    <a href="index.html#section-2" class="back-button">inapoi</a>
+
+    <div class="code-container">
+        <pre>
+            import requests
+
+def ip_info(ip):
+    url = f"https://ipwhois.app/json/{ip}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        ip_info = response.json()
+        if ip_info.get("success", True) == False:
+            print(f"error: {ip_info['message']}")
+        else:
+            print("--------------------------------")
+            for key, value in ip_info.items():
+                print(f"{key.lower()}: {value}")
+            print("---------------------------------")
+            
+            print("Main: ")
+            main = ['ip', 'country', 'city', 'continent']
+            for th in main:
+                if th in ip_info:
+                    print(f"{th.lower()}: {ip_info[th]}")
+    else:
+        print("error: {ip_info['message']}")
+
+ipaddress = input("IP: ")
+ip_info(ipaddress)
+
+
+        </pre>
+    </div>
+</body>
+</html>

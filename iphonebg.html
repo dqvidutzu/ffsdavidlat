@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        * {
+            transition: all 0.3s ease;
+        }
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column-reverse;
+            background: linear-gradient(to left, #FFDEDE, #9BCDD2);
+            background-color: #CDD5D8;
+        }
+        #iphone {
+            width: 200px;
+            height: 400px;
+            border-radius: 35px;
+            background-image: url("https://cdn.wallpapersafari.com/24/67/AmQIrU.jpg");
+            background-color: black;
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            border: 5px solid black;
+            margin: 0;
+            box-shadow: inset 0px 0px 1px black;
+        }
+        #notch {
+            width: 50%;
+            height: 17px;
+            background-color: black;
+            border-radius: 0 0 9px 9px;
+        }
+        #btns {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            margin-top: 25px;
+        }
+        .btn {
+            border-radius: 50%;
+            border: 1px solid black;
+            height: 25px;
+            width: 25px;
+            aspect-ratio: 1/1;
+        }
+        button {
+            margin-left: 10px;
+        }
+        #red {
+            background-color: red;
+        }
+        #purple {
+            background-color: purple;
+        }
+        #blue {
+            background-color: blue;
+        }
+        #pink {
+            background-color: pink;
+        }
+
+        /* Back button styling */
+        .back-button {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            border: 2px solid #0056b3;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+    </style>
+    <!--      2023 made by dqvidutzul       -->
+    <!-- i remember seeing this project when i was a beginner and i just couldnt do it. now, i tried and hopefully it works :) -->
+
+    <!-- Back button -->
+    <a href="index.html#section-2" class="back-button">inapoi</a>
+
+    <div id="btns">
+        <button id="red" class="btn"></button>
+        <button id="blue" class="btn"></button>
+        <button id="purple" class="btn"></button>
+        <button id="pink" class="btn"></button>
+    </div>
+    <div id="iphone">
+        <div id="notch"></div>
+    </div>
+    <script>
+        const colors = {
+            red: "https://media.idownloadblog.com/wp-content/uploads/2021/09/Twist_Red_Dark-iPhone-13-official-Apple-Wallpaper-1200x2598.jpg",
+            blue: "https://media.idownloadblog.com/wp-content/uploads/2021/09/Twist_Blue_Dark-iPhone-13-official-Apple-Wallpaper-1200x2598.jpg",
+            purple: "https://media.idownloadblog.com/wp-content/uploads/2021/09/Twist_Pink_Dark-iPhone-13-official-Apple-Wallpaper-1200x2598.jpg",
+            pink: "https://media.idownloadblog.com/wp-content/uploads/2021/09/Twist_Pink_Light-iPhone-13-official-Apple-Wallpaper-1200x2598.jpg"
+        };
+
+        let iphone = document.getElementById("iphone");
+        let animationTimeout;
+
+        function fadeBackgroundImage(imageUrl) {
+            clearTimeout(animationTimeout);
+
+            animationTimeout = setTimeout(() => {
+                iphone.style.backgroundImage = `url("${imageUrl}")`;
+            }, 5);
+        }
+
+        function changeBackgroundImage(imageUrl) {
+            let tempImage = new Image();
+            tempImage.src = imageUrl;
+            tempImage.onload = function () {
+                fadeBackgroundImage(imageUrl);
+            };
+        }
+
+        let [redButton, blueButton, purpleButton, pinkButton] = [
+            document.getElementById("red"),
+            document.getElementById("blue"),
+            document.getElementById("purple"),
+            document.getElementById("pink")
+        ];
+
+        redButton.addEventListener("click", () => {
+            changeBackgroundImage(colors.red);
+        });
+
+        blueButton.addEventListener("click", () => {
+            changeBackgroundImage(colors.blue);
+        });
+
+        purpleButton.addEventListener("click", () => {
+            changeBackgroundImage(colors.purple);
+        });
+
+        pinkButton.addEventListener("click", () => {
+            changeBackgroundImage(colors.pink);
+        });
+    </script>
+</body>
+</html>

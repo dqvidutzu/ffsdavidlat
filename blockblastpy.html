@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Viewer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2c2c2c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .code-container {
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #444;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 800px;
+            overflow: auto;
+        }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        .back-button {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border: 2px solid #0056b3;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+    </style>
+</head>
+<body>
+    <a href="index.html#section-2" class="back-button">inapoi</a>
+
+    <div class="code-container">
+        <pre>
+            import numpy as np
+            import tkinter as tk
+            import random
+            import pygame
+            piesa_colors = {}
+            culori = [
+                "red", "orange", "yellow", "green", "blue",
+                "indigo", "violet", "cyan", "magenta", "lime",
+                "pink", "teal", "lavender", "tan",
+                "coral", "skyblue", "khaki", "navy", "gold", "silver"
+            ]
+            
+            def tabla_s():
+                patrate = np.zeros((8, 8), dtype=int)
+                celulepline = 10 
+                indiciplini = np.random.choice(64, celulepline, replace=False)
+            
+                for index in indiciplini:
+                    linie, col = divmod(index, 8)
+                    patrate[linie][col] = 0
+            
+                return patrate
+            
+            def print_piesa(piesa):
+                for linie in piesa:
+                    for patrat in linie:
+                        print(patrat, end=" ")
+                    print()
+            
+            def ver_pos(patrate, piesa, start_linie, start_col):
+                liniepiesa = len(piesa)
+                colpiesa = len(piesa[0])
+                if start_linie + liniepiesa > 8 or start_col + colpiesa > 8:
+                    return False
+                
+                for i in range(liniepiesa):
+                    for j in range(colpiesa):
+                        if piesa[i][j] == 1 and patrate[start_linie + i][start_col + j] != 0:
+                            return False
+                return True
+            
+            def adaugapiesa(patrate, piesa, start_linie=0, start_col=0, nr_piesa=None):
+                if not ver_pos(patrate, piesa, start_linie, start_col):
+                    print("collision")
+                    return
+                
+                liniepiesa = len(piesa)
+                colpiesa = len(piesa[0])
+                
+                for i in range(liniepiesa):
+                    for j in range(colpiesa):
+                        if piesa[i][j] == 1:
+                            patrate[start_linie + i][start_col + j] = nr_piesa
+            
+            # sa ma pis in ele de piese ca nu s toate da mi e lene sa le scriu
+            piese_cunoscute = {
+                1: [
+                    [1, 1],
+                    [1, 1]
+                ],
+                2: [
+                    [1, 1, 1],
+                    [1, 1, 1],
+                    [1, 1, 1]
+                ],
+                3: [
+                    [0, 1, 1],
+                    [0, 1, 1],
+                    [0, 1, 1]
+                ],
+                4: [
+                    [1, 1, 1],
+                    [1, 1, 1],
+                    [0, 0, 0]
+                ], 
+                5: [
+                    [0, 1, 1],
+                    [0, 1, 0],
+                    [0, 1, 0]
+                ],
+                6: [
+                    [1, 1, 0],
+                    [0, 1, 0],
+                    [0, 1, 0]
+                ], 
+                7: [
+                    [0, 1, 0],
+                    [0, 1, 0],
+                    [0, 1, 1]
+                ],
+                8: [
+                    [0, 1, 0],
+                    [0, 1, 0],
+                    [1, 1, 0]
+                ], 
+                9: [
+                    [0, 0, 1],
+                    [0, 0, 1],
+                    [1, 1, 1]
+                ], 
+                10: [
+                    [1, 0, 0],
+                    [1, 0, 0],
+                    [1, 1, 1]
+                ],
+                11: [
+                    [1, 1, 1],
+                    [1, 0, 0],
+                    [1, 0, 0]
+                ],
+                12: [
+                    [1, 1, 1],
+                    [0, 0, 1],
+                    [0, 0, 1]
+                ],
+                13: [
+                    [0, 1, 1],
+                    [1, 1, 0],
+                    [0, 0, 0]
+                ],
+                14: [
+                    [1, 1, 0],
+                    [0, 1, 1],
+                    [0, 0, 0]
+                ],
+                15: [
+                    [1, 0, 0],
+                    [1, 1, 0],
+                    [0, 1, 0]
+                ],
+                16: [
+                    [0, 0, 1],
+                    [0, 1, 1],
+                    [0, 1, 0]
+                ],
+                17: [
+                    [1],
+                    [1],
+                    [1],
+                    [1],
+                ],
+                18: [
+                    [1],
+                    [1],
+                    [1],
+                    [1],
+                    [1],
+                ],
+                19: [
+                    [1],
+                    [1],
+                    [1],
+                    [1],
+                    [1],
+                    [1]
+                ],
+                20: [
+                    [0, 1, 0],
+                    [1, 1, 0],
+                    [1, 0, 0]
+                ],
+                21: [
+                    [0, 1, 0],
+                    [0, 1, 1],
+                    [0, 0, 1]
+                ],
+                22: [
+                    [1, 1, 1, 1]
+                ],
+                23: [
+                    [1, 1, 1, 1, 1]
+                ],
+                24: [
+                    [1, 1, 1, 1, 1, 1]
+                ],
+                25: [
+                    [0, 0, 0],
+                    [1, 0, 0],
+                    [1, 1, 1]
+                ],
+                26: [
+                    [0, 0, 0],
+                    [0, 0, 1],
+                    [1, 1, 1]
+                ],
+                27: [
+                    [1],
+                    [1],
+                    [1]
+                   
+                ]
+            }
+            
+            def linie_full(patrate, linie):
+                if all(patrat != 0 for patrat in patrate[linie]):
+                    patrate[linie] = [0] * 8
+                    print(f"dbg {linie}")
+                    return True
+                return False
+            
+            def col_full(patrate, col):
+                if all(patrate[linie][col] != 0 for linie in range(8)):
+                    for linie in range(8):
+                        patrate[linie][col] = 0
+                    print(f"dbg {col}")
+                    return True
+                return False
+            
+            
+            def vis_piesa(nr_piesa):
+                return piese_cunoscute.get(nr_piesa, None)
+            def culoare_asgn(nr_piesa):
+                if nr_piesa not in piesa_colors:
+                    piesa_colors[nr_piesa] = random.choice(culori)
+                return piesa_colors[nr_piesa]
+            def shw_tabla(patrate):
+                pygame.init()
+                screen = pygame.display.set_mode((400, 400))
+                pygame.display.set_caption("tabla")
+                clock = pygame.time.Clock()
+                running = True
+            
+                while running:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            running = False
+                    
+                    screen.fill((0, 0, 0))
+                    patrat_s = 50
+                    for i in range(8):
+                        for j in range(8):
+                            patrat_value = patrate[i][j]
+                            color = culoare_asgn(patrat_value) if patrat_value != 0 else (0, 0, 0)
+                            pygame.draw.rect(screen, pygame.Color(color), 
+                                             pygame.Rect(j * patrat_s, i * patrat_s, patrat_s, patrat_s))
+                            pygame.draw.rect(screen, pygame.Color("white"), 
+                                             pygame.Rect(j * patrat_s, i * patrat_s, patrat_s, patrat_s), 3)
+                    
+                    pygame.display.flip()
+                    clock.tick(60)
+            
+                pygame.quit()
+            
+            
+            def tablascor(patrate):
+                scor = 0
+                linii_de_curatat = [i for i in range(8) if all(patrate[i][j] != 0 for j in range(8))]
+                cols_to_clear = [j for j in range(8) if all(patrate[i][j] != 0 for i in range(8))]
+                
+                scor += len(linii_de_curatat) * 10
+                scor += len(cols_to_clear) * 10 
+                
+                for linie in linii_de_curatat:
+                    patrate[linie, :] = 0
+                    print(f"linie {linie} /clr")
+                for col in cols_to_clear:
+                    patrate[:, col] = 0
+                    print(f"col {col} /clr")
+                
+                return scor
+            
+            
+            
+            def generate_miscari(patrate, piesa):
+                miscari = []
+                for start_linie in range(len(patrate) - len(piesa) + 1):
+                    for start_col in range(len(patrate[0]) - len(piesa[0]) + 1):
+                        if ver_pos(patrate, piesa, start_linie, start_col):
+                            miscari.append((start_linie, start_col))
+                return miscari
+            
+            def evaluate_tabla_joc(patrate):
+                scor = 0
+                linii_de_curatat = [i for i in range(8) if all(patrate[i][j] != 0 for j in range(8))]
+                cols_to_clear = [j for j in range(8) if all(patrate[i][j] != 0 for i in range(8))]
+                
+                scor += (len(linii_de_curatat) + len(cols_to_clear)) * 100
+                for linie in linii_de_curatat:
+                    patrate[linie, :] = 0
+                    print(f"randul {linie+1} curatat")
+                for col in cols_to_clear:
+                    patrate[:, col] = 0
+                    print(f"coloana {col+1} curatata")
+                for i in range(8):
+                    for j in range(8):
+                        if patrate[i][j] == 0:
+                            if ((i == 0 or patrate[i-1][j] != 0) and 
+                                (i == 7 or patrate[i+1][j] != 0) and 
+                                (j == 0 or patrate[i][j-1] != 0) and 
+                                (j == 7 or patrate[i][j+1] != 0)):
+                                scor -= 30
+                
+                return scor
+            
+            
+            
+            def minimax(patrate, depth, alpha, beta, is_maximizing, piesa_queue):
+                if depth == 0 or not piesa_queue:
+                    return evaluate_tabla_joc(patrate), None
+                
+                ceamaibunamiscare = None
+                nr_piesa = piesa_queue[0]
+                piesa = vis_piesa(nr_piesa)
+                
+                if is_maximizing:
+                    max_eval = -float('inf')
+                    for start_linie, start_col in generate_miscari(patrate, piesa):
+                        new_patrate = np.copy(patrate)
+                        adaugapiesa(new_patrate, piesa, start_linie, start_col, nr_piesa)
+                        eval_scor, _ = minimax(new_patrate, depth - 1, alpha, beta, False, piesa_queue[1:])
+                        if eval_scor > max_eval:
+                            max_eval = eval_scor
+                            ceamaibunamiscare = (start_linie, start_col)
+                        alpha = max(alpha, eval_scor)
+                        if beta <= alpha:
+                            break
+                    return max_eval, ceamaibunamiscare
+                else:
+                    min_eval = float('inf')
+                    for start_linie, start_col in generate_miscari(patrate, piesa):
+                        new_patrate = np.copy(patrate)
+                        adaugapiesa(new_patrate, piesa, start_linie, start_col, nr_piesa)
+                        eval_scor, _ = minimax(new_patrate, depth - 1, alpha, beta, True, piesa_queue[1:])
+                        if eval_scor < min_eval:
+                            min_eval = eval_scor
+                        beta = min(beta, eval_scor)
+                        if beta <= alpha:
+                            break
+                    return min_eval, None
+            
+            def choose_ceamaibunamiscare(patrate, piesa, nr_piesa, depth=4):
+                return minimax(patrate, depth, -float('inf'), float('inf'), True, [nr_piesa])[1]
+            def main():
+                tabla_joc = tabla_s()
+                print("tabla initiala")
+                shw_tabla(tabla_joc)
+            
+                while True:
+                    try:
+                        nr_piesas = list(map(int, input("piese: ").split()))
+                        print(f"piese: {nr_piesas}")
+            
+                        if len(nr_piesas) != 3 or not all(num in piese_cunoscute for num in nr_piesas):
+                            print("invalid")
+                            continue
+            
+                        move_found = False
+                        for nr_piesa in nr_piesas:
+                            piesa = vis_piesa(nr_piesa)
+                            ceamaibunamiscare = choose_ceamaibunamiscare(tabla_joc, piesa, nr_piesa, depth=9)
+            
+                            if ceamaibunamiscare:
+                                start_linie, start_col = ceamaibunamiscare
+                                adaugapiesa(tabla_joc, piesa, start_linie, start_col, nr_piesa)
+                                move_found = True
+                                print(f"piesa {nr_piesa} pe ({start_linie}, {start_col})")
+                                
+                                tablascor(tabla_joc)
+                                
+                                shw_tabla(tabla_joc)
+            
+                        if not move_found:
+                            print("stop")
+                            break
+            
+                    except ValueError:
+                        print("error")
+            
+            if __name__ == "__main__":
+                main()
+            
+        </pre>
+    </div>
+</body>
+</html>

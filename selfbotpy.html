@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Viewer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2c2c2c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .code-container {
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #444;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 800px;
+            overflow: auto;
+        }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        .back-button {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border: 2px solid #0056b3;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+    </style>
+</head>
+<body>
+    <a href="index.html#section-2" class="back-button">inapoi</a>
+
+    <div class="code-container">
+        <pre>
+            import random
+            import time
+            import asyncio
+            import discord
+            from discord.ext import commands
+            from colorama import Fore
+            token = "ai vrea tu sa stii ;)"
+            intents = discord.Intents.default()
+            
+            class MyBot(commands.Bot):
+                def __init__(self, *args, **kwargs):
+                    intents = kwargs.pop('intents', discord.Intents.default())
+                    super().__init__(command_prefix="!", intents=intents, *args, **kwargs)
+            
+                async def trim_msj(self, channel, user_id, msj, delay=0.2):
+                    running = True
+                    time.sleep(5)
+                    while running:
+                            msg_combinate = f"# <@{user_id}> {random.choice(msj)}"
+                            await channel.send(msg_combinate)
+                            await asyncio.sleep(delay)
+            
+                async def on_ready(self):
+                    print(f'''{Fore.RED}              
+            
+                    ███╗░░░███╗██╗░░░██╗██╗████████╗░█████╗░██████╗░
+                    ████╗░████║██║░░░██║██║╚══██╔══╝██╔══██╗██╔══██╗
+                    ██╔████╔██║██║░░░██║██║░░░██║░░░██║░░██║██████╔╝
+                    ██║╚██╔╝██║██║░░░██║██║░░░██║░░░██║░░██║██╔══██╗
+                    ██║░╚═╝░██║╚██████╔╝██║░░░██║░░░╚█████╔╝██║░░██║
+                    ╚═╝░░░░░╚═╝░╚═════╝░╚═╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝
+            {Fore.WHITE}      
+                                  █░█ ▄█ ░ █▀█ ░ █▀█
+                                  ▀▄▀ ░█ ▄ █▄█ ▄ █▄█
+            
+                             {Fore.GREEN}selfbot, {Fore.WHITE}made by {Fore.RED}ffsdavid                             
+                              {Fore.BLUE}logat ca: {self.user}                                                          
+                                                                                           ''')
+            
+            
+            
+            
+            
+                async def on_mesaj(self, mesaj):
+                    if self.user in mesaj.mentions and '-s' in mesaj.content and mesaj.author.id == 1291498592842022912 or mesaj.author.id == 1302749726856450130:
+                        content_parts = mesaj.content.split()
+                        if len(content_parts) > 2:
+                            user_id = content_parts[2]
+                            msj = ["sugi pula", "ma apuci de coaie","moare mata", "caine",  "pici in sant",  "ce prost esti",  "sugi", "pizdo", "e proasta mata", "mt curva", "pulan inima ta", "ma sugi de coaie","taci in pula mea", "pizda mati", "te fut in gura", "sa ma cac pe tn","undei mata", "te fuuuutttt", "ma pis pe raniti mati", "ce face mata", "unde i tarfa de mata","iti iau fata n pula",
+            "cac pe tactu", "ma pis pe mata cu acid sulfuric", "sugi pula de prost", "pic cu pulan mata", "ma cac in norocu mati","sugi cu mata", "sugi si pentru mata", "pis pe cristelnita mati", "iti iau morti n pula", "sa ma cac peste mata","til iau pe tactu in ciocan"]
+                            delay = 0.2
+                            await self.trim_msj(mesaj.channel, user_id, msj, delay)
+                            
+                    await self.process_commands(mesaj)
+            
+            if __name__ == "__main__":
+                intents = discord.Intents.default()
+                bot = MyBot(intents=intents)
+            
+                try:
+                    bot.run(token, bot=False)
+                except discord.errors.LoginFailure:
+                    print("token invalid")
+            
+
+        </pre>
+    </div>
+</body>
+</html>

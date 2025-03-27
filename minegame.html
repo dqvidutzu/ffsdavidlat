@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mine Game</title>
+    <style>
+        * {
+            transition: all 0.2s ease;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: auto;
+            background: #e0e0e0;
+            flex-direction: column;
+            padding:20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        section {
+            display: grid;
+            grid-template-columns: repeat(4, 50px);
+            grid-template-rows: repeat(4, 50px);
+            gap: 8px;
+            margin: 0;
+            align-items: center;
+        }
+        div {
+            width: 50px;
+            height: 50px;
+            background-color: #224585;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+        }
+        .warning, .lost {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            display: none;
+            background-position: center;
+            background-size: cover;
+        }
+        .warning {
+            background-color: greenyellow;
+        }
+        .lost {
+            background-color: red;
+        }
+        button {
+            position: absolute;
+            top: 91%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 30px;
+            background-color: transparent;
+            border-radius: 16px;
+            font-size: 20px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+        }
+        .top-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 15px;
+            background: #861616;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .top-button:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html#section-2" class="top-button">inapoi</a>
+    <p>din moment ce nu sunt asa bun, imaginile de win/lose nu merg<br>daca e rosu ai pierdut, daca e verde ai castigat</p>
+    <section>
+        <div id="1">1</div>
+        <div id="2">2</div>
+        <div id="3">3</div>
+        <div id="4">4</div>
+        <div id="5">5</div>
+        <div id="6">6</div>
+        <div id="7">7</div>
+        <div id="8">8</div>
+        <div id="9">9</div>
+        <div id="10">10</div>
+        <div id="11">11</div>
+        <div id="12">12</div>
+        <div id="13">13</div>
+        <div id="14">14</div>
+        <div id="15">15</div>
+        <div id="16">16</div>
+    </section>
+    <div class="warning">
+        <button onclick="reloadPage()">Play Again?</button>
+    </div>
+    <div class="lost">
+        <button onclick="reloadPage()">Play Again?</button>
+    </div>
+    <script>
+         setTimeout(() => {
+        const message = document.querySelector("p");
+        if (message) {
+            message.style.display = "none";
+        }
+    }, 2500);
+        function reloadPage() {
+            window.location.reload();
+        }
+
+        function generateRandomNumber(a) {
+            return Math.floor(Math.random() * a);
+        }
+
+        let winner = document.querySelector(".warning");
+        let lost = document.querySelector(".lost");
+
+        let correctBlocks = new Set();
+        let x;
+
+        const divs = document.querySelectorAll("section > div");
+        x = generateRandomNumber(divs.length);
+
+        divs[x].classList.remove("correct");
+        divs[x].classList.add("wrong");
+
+        divs.forEach((div, index) => {
+            div.classList.add("correct");
+
+            if (index !== x) {
+                div.addEventListener("click", () => {
+                    div.style.backgroundColor = "#00ff00";
+                    div.innerHTML = "&#x2713;";
+                    div.style.color = "black";
+                    correctBlocks.add(index);
+
+                    if (correctBlocks.size === 15) {
+                        winner.style.display = "block";
+                    }
+                });
+            }
+        });
+
+        divs[x].addEventListener("click", () => {
+            divs[x].style.backgroundColor = "#ff0000";
+            divs[x].innerHTML = "X";
+            lost.style.display = "block";
+        });
+    </script>
+</body>
+</html>
