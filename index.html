@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <title>ffsdavid</title>
 </head>
 <body>
@@ -18,47 +19,50 @@
             <li><a href="#section-4">Contact</a></li>
         </ul>
     </nav>
-    <div id="section-1" class="section section-1">
+    
+    <div id="section-1" class="section section-1" data-aos="fade-up">
         <div class="container">
-            <div class="salut-msg">
+            <div class="salut-msg" data-aos="fade-up">
                 <h1>salut, bine ai venit pe <span style="color:red">ffsdavid.lat</span></h1>
                 <p>nu gasesti multe aici, sunt mai multe sectiuni unde am incercat sa mi atasez proiectele, gandurile, etc. <br>deci daca ai asteptari mari asta nu e locul potrivit. da stiu, domeniul e .lat (latvia) dar am dat doar 2 euro :)</p>
             </div>
-            <div class="main-quote">
+            <div class="main-quote" data-aos="fade-up">
                 <p>"you laugh, you laugh, but it's not your laughter"<br>- david</p>
             </div>
-            <div class="main-floare">
+            <div class="main-floare" data-aos="fade-up">
                 <img src="floare.png" alt="floare">
             </div>
-            <div class="main-floare-msg">
+            <div class="main-floare-msg" data-aos="fade-up">
                 <p>primesti o floare :)</p>
             </div>
-          </div>
+        </div>
     </div>
-    <div id="section-2" class="section section-2">
+    
+    <div id="section-2" class="section section-2" data-aos="fade-left">
         <div class="container2">
-            <div class="second-text"><p><a href="secret.html" style="text-decoration:none; color:rgb(209, 205, 205); font-family:arial">aici</a> gasesti codurile, poate nu pare mult da unele am zis ca sunt imposibile sa moara giani, si chatgpt a avut o mica contributie dc sa mint....</p></div>
-            <div class="second-py">
+            <div class="second-text" data-aos="fade-left">
+                <p><a href="secret.html" style="text-decoration:none; color:rgb(209, 205, 205); font-family:arial">aici</a> gasesti codurile...</p>
+            </div>
+            <div class="second-py" data-aos="fade-left">
                 <p>Python 3.10:</p>
                 <div id="py-coduri">
-                    <!--coduri py-->
                     <a href="blockblastpy.html">BlockBlast Solver</a>
                     <a href="ipv4py.html">IPv4 Info</a>
                     <a href="selfbotpy.html">Discord Selfbot</a>
                     <a href="wifispampy.html">Wifi Spammer</a>
                 </div>
             </div>
-            <div class="second-web">
+            <div class="second-web" data-aos="fade-left">
                 <p>Web:</p>
                 <div id="web-coduri">
-                    <!--coduri web-->
                     <a href="iphonebg.html">iPhone Background</a>
                     <a href="minegame.html">Mine Game</a>
                 </div>
             </div>
-          </div>
+        </div>
     </div>
-    <div id="section-3" class="section section-3">
+    
+    <div id="section-3" class="section section-3" data-aos="fade-left">
         <p>20-3-2025: <span style="color:aliceblue">index.html</span> was created</p>
         <div class="vertical-line"></div>
         <p>20-3-2025: <span style="color:aliceblue">styles.css</span> was created</p>
@@ -73,7 +77,8 @@
         <div class="vertical-line"></div>
         <p>26-3-2025: <span style="color:rgb(21, 255, 0); font-family: Arial, Helvetica, sans-serif;">Section 3</span> was created (current section)</p>
     </div>
-    <div id="section-4" class="section section-4">
+    
+    <div id="section-4" class="section section-4" data-aos="fade-right">
         <div class="contact-container">
             <h2>da-mi un mesaj ;)</h2>
             <form action="https://formspree.io/f/xanedyor" method="post">
@@ -89,6 +94,11 @@
         <p>(da, chiar merge ━ daca nu se incarca imediat asteapta putin)</p>
     </div>
     
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
+
